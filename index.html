@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <title>The Monster Slayer</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="text-center"><h1>The Monster Slayer</h1></div>
+      <section class="row">
+        <div class="small-6 columns">
+          <!-- <img src="https://robohash.org/player.png" /> -->
+          <h1 class="text-center">Player</h1>
+          <div class="healthbar">
+            <div
+              class="healthbar text-center"
+              style="background-color:green; margin:0; color:white"
+              :style="{width:playerHealth + '%'}"
+            >
+              {{ playerHealth }}
+            </div>
+          </div>
+        </div>
+
+        <div class="small-6 columns">
+          <!-- <img src="https://robohash.org/monster.png" /> -->
+          <h1 class="text-center">Monster</h1>
+          <div class="healthbar">
+            <div
+              class="healthbar text-center"
+              style="background-color:green; margin:0; color:white"
+              :style="{width:monsterHealth + '%'}"
+            >
+              {{ monsterHealth }}
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="row controls" v-if="!isRunning">
+        <div class="small-12 columns">
+          <button id="start-game" @click="startGame">New Game</button>
+        </div>
+      </section>
+      <section class="row controls" v-else>
+        <div class="small-12 columns">
+          <button id="attack" @click="attack">Attack</button>
+          <button id="special-attack" @click="specialAttack">
+            Special Attack
+          </button>
+          <button id="heal" @click="heal">Heal</button>
+          <button id="give-up" @click="giveUp">Give Up</button>
+        </div>
+      </section>
+      <section class="row log" v-if="logs.length > 0">
+        <div class="small-12 columns">
+          <ul>
+            <li
+              v-for="log in logs"
+              :class="{'player-turn':log.isPlayer,'monster-turn':!log.isPlayer}"
+            >
+              {{ log.message }}
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
